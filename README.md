@@ -64,10 +64,28 @@ The four NIPs are each implemented in production code today. References:
     (NIP-05-only carve-out so it can land independently).
 - **Nostur** (iOS, Swift): [PR #60](https://github.com/nostur-com/nostur-ios-public/pull/60).
 - **nostr-tools** (TypeScript / Node, isomorphic): [PR #533](https://github.com/nbd-wtf/nostr-tools/pull/533).
+- **Jumble** (web client, browser-resident `wss://` ElectrumX transport):
+  [PR #774](https://github.com/CodyTseng/jumble/pull/774). The reference
+  for the WebSocket transport described in NIP-B1 §"Browser / WebSocket
+  transport".
+- **noStrudel** (web client): [PR #352](https://github.com/hzrd149/nostrudel/pull/352)
+  — the original browser-side implementation; Jumble adapted the same
+  pattern.
+- Browser implementations following the same pattern: Iris
+  ([irislib/iris-client](https://github.com/irislib/iris-client)), Snort
+  ([v0l/snort](https://github.com/v0l/snort)), Coracle
+  ([coracle-social/coracle](https://github.com/coracle-social/coracle)).
 - **strfry** (relay write-policy plugin, C++/JS): https://github.com/mstrofnone/strfry-namecoin-policy.
 - **strfry NIP-05 sidecar**: https://github.com/mstrofnone/strfry-nip05-namecoin.
-- **nak-nmc** (CLI front-end for [`nak`](https://github.com/fiatjaf/nak)): https://github.com/mstrofnone/nak-nmc.
-- **nostrlib-nip05-namecoin** (Go, fiatjaf/nostr-lib subpackage): https://github.com/mstrofnone/nostrlib-nip05-namecoin.
+- **nak / nostrlib** (Go, fiatjaf): proposed as a `nip05/namecoin`
+  subpackage of [`fiatjaf.com/nostr`](https://github.com/fiatjaf/nostrlib),
+  per [`nak#123`](https://github.com/fiatjaf/nak/pull/123) discussion.
+  Drop-in shape lives at https://github.com/mstrofnone/nostrlib-nip05-namecoin
+  (also published as a NIP-34 git patch event
+  `nevent1qqs8yepuma694y6saym8ny4wtfzymlgu2htusvweyjzpamc0rgn8pyq...`).
+- **nak-nmc** (standalone wrapper that fronts [`nak`](https://github.com/fiatjaf/nak)
+  for users who want this without waiting for upstream):
+  https://github.com/mstrofnone/nak-nmc.
 - **nmcLightningService** (Node, end-to-end on-chain publishing pipeline): https://github.com/mstrofnone/nmcLightningService.
 
 A live reference deployment (relay + identity + TLSA + Tor) sits at
@@ -81,3 +99,25 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
 
 These documents are released into the public domain (CC0-1.0).
+
+## API-shape guidance for libraries
+
+Integrators porting this NIP track into a generic Nostr SDK should
+follow the **transport-agnostic, caller-supplies-servers** pattern
+fiatjaf called for in the
+[`nak#123`](https://github.com/fiatjaf/nak/pull/123) discussion:
+
+- The lookup function MUST NOT bake in a specific server list.
+  Accept the list (or a function returning it) as a parameter, with
+  per-call overrides supported.
+- The lookup function MUST NOT bake in a specific transport. The
+  WebSocket transport (NIP-B1 §"Browser / WebSocket transport") and
+  the TCP+TLS transport SHOULD be selectable by the caller. A
+  browser-only build can ship just the WebSocket path.
+- The library API SHOULD mirror existing NIP-05 entry points
+  (`QueryIdentifier` / `queryProfile`) so callers do not need a
+  separate codepath for `.bit` identifiers — the library transparently
+  routes by identifier shape.
+- Pinned TLS material (server-cert SHA-256 fingerprints) belongs in an
+  optional plug-in, not in the core lookup. Browsers cannot use it,
+  and not all native clients want it.
