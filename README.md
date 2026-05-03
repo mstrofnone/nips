@@ -9,7 +9,7 @@ These are **proposals**. They are written in the same style as
 deliberately separable: a client can implement any single one and still
 interoperate with classic NIP-05, NIP-65, etc.
 
-All four NIPs are wire-compatible with the Namecoin project's
+All five NIPs are wire-compatible with the Namecoin project's
 [`namecoin/proposals`](https://github.com/namecoin/proposals)
 (in particular [ifa-0001](https://github.com/namecoin/proposals/blob/master/ifa-0001.md)
 "Domain Names",
@@ -29,6 +29,7 @@ lives under the `nostr` item.
 | [N1](N1.md) | NIP-05 verification via Namecoin (`.bit` / `d/` / `id/`) | Draft |
 | [N2](N2.md) | Nostr relay discovery, subdomains, and Tor routing via Namecoin | Draft |
 | [N3](N3.md) | TLSA pinning for `.bit` Nostr relay WebSockets (RFC 6698) | Draft |
+| [N4](N4.md) | Service attestations with optional Namecoin-anchored identity binding | Draft |
 
 The `N` prefix avoids stepping on the upstream NIP numbering (which is allocated by
 PR-merge order in `nostr-protocol/nips` and uses hex-extended identifiers such as
@@ -40,7 +41,10 @@ upstreamed, the upstream number takes precedence and the `N*` file becomes a red
 
 ## Reference implementations
 
-The four NIPs are each implemented in production code today. References:
+Four of the five NIPs are each implemented in production code today
+(N4 is draft-only at time of writing; the on-chain seed of N4 was
+published as a NostrHub kind-30817 entry by mstrofnone on
+`wss://relay.ditto.pub`). References:
 
 - **Amethyst** (Android / KMP iOS / Desktop, Kotlin):
   - NIP-05 over Namecoin: [PR #1734](https://github.com/vitorpamplona/amethyst/pull/1734)
