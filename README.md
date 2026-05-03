@@ -25,14 +25,18 @@ lives under the `nostr` item.
 
 | NIP | Title | Status |
 |---|---|---|
-| [B0](B0.md) | Namecoin record container for Nostr (`nostr` item) | Draft |
-| [B1](B1.md) | NIP-05 verification via Namecoin (`.bit` / `d/` / `id/`) | Draft |
-| [B2](B2.md) | Nostr relay discovery, subdomains, and Tor routing via Namecoin | Draft |
-| [B3](B3.md) | TLSA pinning for `.bit` Nostr relay WebSockets (RFC 6698) | Draft |
+| [N0](N0.md) | Namecoin record container for Nostr (`nostr` item) | Draft |
+| [N1](N1.md) | NIP-05 verification via Namecoin (`.bit` / `d/` / `id/`) | Draft |
+| [N2](N2.md) | Nostr relay discovery, subdomains, and Tor routing via Namecoin | Draft |
+| [N3](N3.md) | TLSA pinning for `.bit` Nostr relay WebSockets (RFC 6698) | Draft |
 
-The `B` prefix avoids stepping on the upstream NIP numbering (which is allocated by
-PR-merge order in `nostr-protocol/nips`). If any of these are upstreamed, the
-upstream number takes precedence and the `B*` file becomes a redirect.
+The `N` prefix avoids stepping on the upstream NIP numbering (which is allocated by
+PR-merge order in `nostr-protocol/nips` and uses hex-extended identifiers such as
+`5A`, `7D`, `A0`, `B0`, `B7`, `C0`, `C7`, `EE` once the decimal range is exhausted).
+`N` is outside the hex alphabet, so it is guaranteed not to collide with any upstream
+allocation. (Earlier drafts of this repo used `B0..B3`; that prefix was retired
+because `NIP-B0` was already taken upstream by *Web Bookmarks*.) If any of these are
+upstreamed, the upstream number takes precedence and the `N*` file becomes a redirect.
 
 ## Reference implementations
 
@@ -66,7 +70,7 @@ The four NIPs are each implemented in production code today. References:
 - **nostr-tools** (TypeScript / Node, isomorphic): [PR #533](https://github.com/nbd-wtf/nostr-tools/pull/533).
 - **Jumble** (web client, browser-resident `wss://` ElectrumX transport):
   [PR #774](https://github.com/CodyTseng/jumble/pull/774). The reference
-  for the WebSocket transport described in NIP-B1 §"Browser / WebSocket
+  for the WebSocket transport described in NIP-N1 §"Browser / WebSocket
   transport".
 - **noStrudel** (web client): [PR #352](https://github.com/hzrd149/nostrudel/pull/352)
   — the original browser-side implementation; Jumble adapted the same
@@ -111,7 +115,7 @@ fiatjaf called for in the
   Accept the list (or a function returning it) as a parameter, with
   per-call overrides supported.
 - The lookup function MUST NOT bake in a specific transport. The
-  WebSocket transport (NIP-B1 §"Browser / WebSocket transport") and
+  WebSocket transport (NIP-N1 §"Browser / WebSocket transport") and
   the TCP+TLS transport SHOULD be selectable by the caller. A
   browser-only build can ship just the WebSocket path.
 - The library API SHOULD mirror existing NIP-05 entry points
