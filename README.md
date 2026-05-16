@@ -72,6 +72,13 @@ published as a NostrHub kind-30817 entry by mstrofnone on
     (NIP-05-only carve-out so it can land independently).
 - **Nostur** (iOS, Swift): [PR #60](https://github.com/nostur-com/nostur-ios-public/pull/60).
 - **nostr-tools** (TypeScript / Node, isomorphic): [PR #533](https://github.com/nbd-wtf/nostr-tools/pull/533).
+- **dart-nostr** (Flutter / Dart, `nostr` on pub.dev):
+  [PR #44](https://github.com/ethicnology/dart-nostr/pull/44) (merged).
+  First Dart implementation; ships the full N1 + N2 + N3 surface in one
+  library (NIP-05 over `.bit`, relay subdomain resolver, TLSA pin
+  records). 526/526 tests pass including live-blockchain smoke tests
+  against `testls.bit`, byte-for-byte agreement with the Kotlin /
+  Swift / TypeScript / Go ports on the same on-chain records.
 - **Jumble** (web client, browser-resident `wss://` ElectrumX transport):
   [PR #774](https://github.com/CodyTseng/jumble/pull/774). The reference
   for the WebSocket transport described in NIP-N1 §"Browser / WebSocket
