@@ -69,11 +69,25 @@ auxiliary record is registered). References:
   - iOS port: [PR #2199](https://github.com/vitorpamplona/amethyst/pull/2199).
   - Desktop port: [PR #1914](https://github.com/vitorpamplona/amethyst/pull/1914).
   - `.bit` relay resolution + TLSA + Tor:
-    [PR #2595](https://github.com/vitorpamplona/amethyst/pull/2595).
+    [PR #2595](https://github.com/vitorpamplona/amethyst/pull/2595)
+    (closed without a GitHub merge on 2026-11-02; retained as reference
+    code, not merged Amethyst relay support).
+  - HTTPS `.bit` browsing + DANE/TLSA + Tor:
+    [GitWorkshop proposal](https://gitworkshop.dev/vitorpamplona.com/relay.ngit.dev/amethyst/prs/nevent1qy28wumn8ghj7un9d3shjtnwva5hgtnyv4mqqg8e7yq83zt6hj35v68zzlqpv5dxl7aug8d44vg2stvly9ccnzlvqslvefds) (open). This is web transport,
+    not `.bit` Nostr relay WebSocket transport, and is not counted as
+    another N2/N3 client implementation.
   - `import` item resolution (ifa-0001 §"import"):
     [PR #2612](https://github.com/vitorpamplona/amethyst/pull/2612)
     (full stack), [PR #2707](https://github.com/vitorpamplona/amethyst/pull/2707)
     (NIP-05-only carve-out so it can land independently).
+- **GitWorkshop** (web, TypeScript):
+  [Namecoin repository-search proposal](https://gitworkshop.dev/danconwaydev.com/relay.ngit.dev/gitworkshop/prs/nevent1qqsxn6y439vzchkckv7qumurj09xeh8av23u5624kcnp024hlhnnpwcpzfmhxue69uhkw6t5dehhxarj9e3k7mgkyd873)
+  (applied; merge `db893727`). Resolves `.bit`, `d/`, and `id/`
+  identifiers through browser-resident ElectrumX-over-WSS. N1 only.
+- **WhiteNoise Linux** (Linux desktop, Odin with a C WSS shim):
+  [Namecoin resolution proposal](https://gitworkshop.dev/npub1ven4zk8xxw873876gx8y9g9l9fazkye9qnwnglcptgvfwxmygscqsxddfh/relay.ngit.dev/darkmatter-linux/prs/nevent1qqswxmmykpxs0d5puths4gvmj5gxw2t9k4pttvts0vr2jcft64620cgpz3mhxue69uhhyetvv9ujumn8d96zuer9wc7kmzhc)
+  (applied 2026-09-29; merge `19bbcb4e`). Resolves `.bit`, `d/`, and
+  `id/` identifiers for new chats and invites. N1 only.
 - **Nostur** (iOS, Swift): [PR #60](https://github.com/nostur-com/nostur-ios-public/pull/60).
 - **nostr-tools** (TypeScript / Node, isomorphic): [PR #533](https://github.com/nbd-wtf/nostr-tools/pull/533).
 - **dart-nostr** (Flutter / Dart, `nostr` on pub.dev):
@@ -108,8 +122,8 @@ auxiliary record is registered). References:
 - **nmcLightningService** (Node, end-to-end on-chain publishing pipeline): https://github.com/mstrofnone/nmcLightningService.
 
 A live reference deployment (relay + identity + TLSA + Tor) sits at
-`relay.testls.bit` / `testls.bit` and is exercised by the test suites of every
-implementation listed above.
+`relay.testls.bit` / `testls.bit` and provides shared integration targets.
+See the linked implementations for their individual test coverage.
 
 ## Conventions
 
