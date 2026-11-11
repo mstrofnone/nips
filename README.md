@@ -9,7 +9,7 @@ These are **proposals**. They are written in the same style as
 deliberately separable: a client can implement any single one and still
 interoperate with classic NIP-05, NIP-65, etc.
 
-All five NIPs are wire-compatible with the Namecoin project's
+All seven NIPs are wire-compatible with the Namecoin project's
 [`namecoin/proposals`](https://github.com/namecoin/proposals)
 (in particular [ifa-0001](https://github.com/namecoin/proposals/blob/master/ifa-0001.md)
 "Domain Names",
@@ -31,6 +31,7 @@ lives under the `nostr` item.
 | [N3](N3.md) | TLSA pinning for `.bit` Nostr relay WebSockets (RFC 6698) | Draft |
 | [N4](N4.md) | Service attestations with optional Namecoin-anchored identity binding | Draft |
 | [N5](N5.md) | CLINK static payment pointers in the Namecoin `nostr` item | Draft |
+| [N6](N6.md) | Namecoin resolution for nsites | Draft |
 
 The `N` prefix avoids stepping on the upstream NIP numbering (which is allocated by
 PR-merge order in `nostr-protocol/nips` and uses hex-extended identifiers such as
@@ -42,9 +43,9 @@ upstreamed, the upstream number takes precedence and the `N*` file becomes a red
 
 ## Reference implementations
 
-Four of the six NIPs are each implemented in production code today
-(N4 and N5 are draft-only at time of writing; the on-chain seed of N4
-was published as a NostrHub kind-30817 entry by mstrofnone on
+Four of the seven NIPs are each implemented in production code today
+(N4 and N5 are draft-only at time of writing; N6 has an experimental gateway
+implementation; the on-chain seed of N4 was published as a NostrHub kind-30817 entry by mstrofnone on
 `wss://relay.ditto.pub`; N5 layers on top of
 [shocknet/CLINK](https://github.com/shocknet/CLINK) and the live
 reference deployment will sit at `testls.bit` once the `d/cl-testls`
@@ -88,6 +89,12 @@ auxiliary record is registered). References:
   [Namecoin resolution proposal](https://gitworkshop.dev/npub1ven4zk8xxw873876gx8y9g9l9fazkye9qnwnglcptgvfwxmygscqsxddfh/relay.ngit.dev/darkmatter-linux/prs/nevent1qqswxmmykpxs0d5puths4gvmj5gxw2t9k4pttvts0vr2jcft64620cgpz3mhxue69uhhyetvv9ujumn8d96zuer9wc7kmzhc)
   (applied 2026-09-29; merge `19bbcb4e`). Resolves `.bit`, `d/`, and
   `id/` identifiers for new chats and invites. N1 only.
+- **nsite-gateway** (Deno/TypeScript): [PR #24](https://github.com/hzrd149/nsite-gateway/pull/24)
+  is the experimental reference implementation surface for the NIP-N6 legacy
+  identity-to-root flow and direct `nostr.nsite` pointer resolution.
+- **nsyte** (Deno/TypeScript): [ngit proposal](https://gitworkshop.dev/npub1ye5ptcxfyyxl5vjvdjar2ua3f0hynkjzpx552mu5snj3qmx5pzjscpknpr/nsyte/pulls/6635c8f0009d0833780b29a7d4a9ddef2ccde2dcde8529bc41f9fdcd99ce017d)
+  resolves Namecoin identities supplied to `--pubkey`. It is related NIP-N1
+  evidence, not a complete NIP-N6 resolver.
 - **Nostur** (iOS, Swift): [PR #60](https://github.com/nostur-com/nostur-ios-public/pull/60).
 - **nostr-tools** (TypeScript / Node, isomorphic): [PR #533](https://github.com/nbd-wtf/nostr-tools/pull/533).
 - **dart-nostr** (Flutter / Dart, `nostr` on pub.dev):
